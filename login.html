@@ -1,0 +1,203 @@
+
+<html>
+<head>
+<link rel="stylesheet" href="css/all.css"/>
+<style>
+.dropbtn {
+  background-color: black;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+
+#btn1{
+margin-left:145px;
+width:200px;
+height:40px;
+background-color:green;
+}
+#text{
+margin-left:200px;
+border:2px solid black;
+width:165px;
+height:55px;
+background-color:black;
+}
+#i{
+position:absolute;
+margin-left:715px;
+margin-top:0px;
+}
+#a{
+margin-left:30px;
+}
+
+#btn{
+background-color:blue;
+}
+#drop{
+background-color:black;
+}
+#bt{
+color:blue;
+}
+</style>
+<title>Login page</title>
+<link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body  onload="cap()">
+<br/><br/>
+<div class="container cont">
+<form action="validation2.php" method="post">
+  <div class="mb-4 row"><br/><br/>
+    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-8">
+      <input onblur="validate()" type="email" name="email" class="form-control" id="staticEmail">
+      <span id="sp1"></span>
+    </div>
+  </div>
+  <div class="mb-4 row">
+    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-8">
+      <input type="Password" name="pass" class="form-control" id="inputPassword"><i onclick="show()" id="i" class="fas fa-eye"></i>
+    </div>
+  </div>
+<div id="text"></div></br></br>
+<p>Enter the above captcha code: <input type="text" name="text" id="txt" />  <span id="sp"></span> </p></br>
+<div class="dropdown">
+<button id="bt" class="dropbtn" onclick="return false" onmouseover="dropdown1()">sim</button><i class="fa fa-caret-down"></i>
+<div id="drop" class="dropdown-content" onmouseleave="dropdown2()">
+  &nbsp  &nbsp   &nbsp <input type="text" id="bt1"  value="Airtel" onclick="setSim1()" readonly ></br>
+   &nbsp  &nbsp  &nbsp  <input type="text" id="bt2"  value="Idea" onclick="setSim2()" readonly ></br>
+   &nbsp  &nbsp   &nbsp  <input type="text" id="bt3"  value="Jio" onclick="setSim3()" readonly></br>
+   &nbsp  &nbsp   &nbsp <input type="text" id="bt4"  value="Vodafone" onclick="setSim4()" readonly>
+</div>
+<input id="btn1" onclick="return Valcap()" width="20px" type="submit" value="Log in">
+<a id="a" href="recover_email.php">Forget Password ?</a>
+</form>
+</div> 
+<script>
+
+function dropdown1(){
+document.getElementById("drop").classList.add("show");
+}
+function dropdown2(){
+document.getElementById("drop").classList.remove("show");
+}
+function cap(){
+var alpha=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+           'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+           '0','1','2','3','4','5','6','7','8','9']
+var a=alpha[Math.floor(Math.random()*62)];
+var b=alpha[Math.floor(Math.random()*62)];
+var c=alpha[Math.floor(Math.random()*62)];
+var d=alpha[Math.floor(Math.random()*62)];
+var e=alpha[Math.floor(Math.random()*62)];
+var f=alpha[Math.floor(Math.random()*62)];
+var sum=a+b+c+d+e+f;
+document.getElementById("text").innerHTML="<em>"+sum+"</em>";
+document.getElementById("text").style.fontSize="40px";
+document.getElementById("text").style.textAlign="center";
+document.getElementById("text").style.color="grey";
+
+
+}
+
+function Valcap(){
+var string1=document.getElementById("text").textContent;
+var string2=document.getElementById("txt").value;
+if(string1==string2){
+ document.getElementById("sp").innerHTML="Captcha Matched";
+ return true;  
+}
+else{
+ document.getElementById("sp").innerHTML="Captcha is not Matched, </strong>Try again</strong>";
+document.getElementById("txt").value="  ";
+ cap();
+ return false;
+}
+}
+
+
+
+function show(){
+var pass=document.getElementById("inputPassword");
+if(pass.type=="password"){
+   pass.type="text";
+   pass.style.display="block";
+}
+else{
+pass.type="password"
+}
+}
+
+function validate(){
+var e=document.getElementById("staticEmail").value;
+var sp1=document.getElementById("sp1");
+var reg=/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
+if(reg.test(e)){
+sp1.innerHTML="";
+}
+else{
+sp1.innerHTML="Invalid Email";
+sp1.style.color="blue";
+}
+}
+
+function setSim1(){
+ var b1=document.getElementById("bt1");
+     b1.name="sim";
+  }
+
+function setSim2(){
+ var b2=document.getElementById("bt2");
+     b2.name="sim";
+  }
+
+function setSim3(){
+ var b3=document.getElementById("bt3");
+     b3.name="sim";
+  }
+
+function setSim4(){
+ var b4=document.getElementById("bt4");
+     b4.name="sim";
+ }
+
+</script>
+<script src="js/bootstrap.js"></script>
+</body>
+</html>
